@@ -1,8 +1,8 @@
 import { NextResponse } from "next/server";
-import { connectDatabase } from "../../../../../lib/mongodb";
-import Role from "../../../../../models/role";
-import UserRole from "../../../../../models/userRole";
-import RolePermission from "../../../../../models/rolePermission";
+import { connectDatabase } from "@/lib/mongodb";
+import Role from "@/models/role";
+import UserRole from "@/models/userRole";
+import RolePermission from "@/models/rolePermission";
 
 export async function DELETE(
   request: Request,

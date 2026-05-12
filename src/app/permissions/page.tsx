@@ -1,22 +1,17 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import Navbar from "../components/Navbar";
+import Navbar from "@/app/components/Navbar";
 import Link from "next/link";
 import { toast } from "react-toastify";
 import { useSession } from "next-auth/react";
 import Loader from "@/app/components/Loader";
 import ConfirmationModal from "@/app/components/ConfirmationModal";
-
-interface Permission {
-  _id: string;
-  name: string;
-  slug: string;
-}
+import { IPermission } from "@/types";
 
 export default function Permission() {
   const { data: session } = useSession();
-  const [permissions, setPermissions] = useState<Permission[]>([]);
+  const [permissions, setPermissions] = useState<IPermission[]>([]);
   const [loading, setLoading] = useState(true);
 
   const [isModalOpen, setIsModalOpen] = useState(false);

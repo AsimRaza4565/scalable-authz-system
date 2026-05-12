@@ -1,23 +1,18 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import Navbar from "../../components/Navbar";
+import Navbar from "@/app/components/Navbar";
 import Link from "next/link";
 import { toast } from "react-toastify";
 import { useSession } from "next-auth/react";
 import Loader from "@/app/components/Loader";
 import ConfirmationModal from "@/app/components/ConfirmationModal";
-
-interface Role {
-  _id: string;
-  name: string;
-  slug: string;
-}
+import { IRole } from "@/types";
 
 export default function Roles() {
   const { data: session } = useSession();
 
-  const [roles, setRoles] = useState<Role[]>([]);
+  const [roles, setRoles] = useState<IRole[]>([]);
   const [loading, setLoading] = useState(true);
 
   const [isModalOpen, setIsModalOpen] = useState(false);

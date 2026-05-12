@@ -2,8 +2,8 @@ import LoginPage from "./components/LoginPage";
 import { redirect } from "next/navigation";
 import { getServerSession } from "next-auth";
 import { authOptions } from "./api/auth/[...nextauth]/route";
-import { connectDatabase } from "../lib/mongodb";
-import User from "../models/user";
+import { connectDatabase } from "@/lib/mongodb";
+import User from "@/models/user";
 
 export default async function Home() {
   await connectDatabase();

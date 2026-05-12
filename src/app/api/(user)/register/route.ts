@@ -1,10 +1,10 @@
 import { NextResponse } from "next/server";
-import { connectDatabase } from "../../../../lib/mongodb";
-import User from "../../../../models/user";
+import { connectDatabase } from "@/lib/mongodb";
+import User from "@/models/user";
 import bcrypt from "bcryptjs";
-import Role from "../../../../models/role";
-import UserRole from "../../../../models/userRole";
-import { ensureDefaultPermissions } from "../../../../lib/defaultPermissions";
+import Role from "@/models/role";
+import UserRole from "@/models/userRole";
+import { ensureDefaultPermissions } from "@/lib/defaultPermissions";
 
 export async function POST(request: Request) {
   try {

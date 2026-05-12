@@ -1,6 +1,7 @@
 import { NextResponse, NextRequest } from "next/server";
-import { connectDatabase } from "../../../../../lib/mongodb";
-import Post from "../../../../../models/post";
+import { connectDatabase } from "@/lib/mongodb";
+import Post from "@/models/post";
+import "@/models/user";
 
 export async function GET(
   req: NextRequest,
@@ -9,7 +10,7 @@ export async function GET(
   try {
     const { id } = await params;
     await connectDatabase();
-    const post = await Post.findById(id);
+    const post = await Post.findById(id).populate("author", "name");
 
     if (!post) {
       return NextResponse.json({ error: "Post not found" }, { status: 404 });

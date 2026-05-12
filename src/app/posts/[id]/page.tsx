@@ -9,15 +9,10 @@ import { useRouter } from "next/navigation";
 import { useParams } from "next/navigation";
 import Loader from "@/app/components/Loader";
 import ConfirmationModal from "@/app/components/ConfirmationModal";
-
-interface Post {
-  _id: string;
-  title: string;
-  content: string;
-}
+import { IPost } from "@/types";
 
 export default function SinglePost() {
-  const [post, setPost] = useState<Post | null>(null);
+  const [post, setPost] = useState<IPost | null>(null);
   const [loading, setLoading] = useState(true);
   const [isModalOpen, setIsModalOpen] = useState(false);
 
@@ -118,10 +113,31 @@ export default function SinglePost() {
           </div>
           
           <div className="px-8 py-5 bg-slate-50 border-t border-slate-100 flex items-center justify-between">
-             <div className="text-sm text-slate-500">
-               {/* Post ID: {post._id} */}
-             </div>
-             <div className="flex gap-3">
+            <div className="flex items-center gap-3">
+              <div className="w-10 h-10 p-1 rounded-full bg-slate-100 border border-slate-300 flex items-center justify-center overflow-hidden shrink-0">
+                <svg
+                  className="w-10 h-6 text-blue-700"
+                  viewBox="0 0 32 28"
+                  fill="currentColor"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <path d="M16 12c3 0 5-2.5 5-5.5S19 1 16 1s-5 2.5-5 5.5 2 5.5 5 5.5zm0 2c-5 0-9 3-9 6.5V23h18v-2.5c0-3.5-4-6.5-9-6.5z" />
+                </svg>
+              </div>
+              <div className="flex flex-col">
+                <span className="text-md font-medium text-slate-700 truncate max-w-[150px]">
+                  {typeof post.author === "object" && post.author?.name
+                    ? post.author.name
+                    : "Unknown"}
+                </span>
+                {post.createdAt && (
+                  <span className="text-xs text-slate-500">
+                    Published on {new Date(post.createdAt).toLocaleDateString("en-US", { year: 'numeric', month: 'short', day: 'numeric' })}
+                  </span>
+                )}
+              </div>
+            </div>
+            <div className="flex gap-3">
               {session?.user?.permissions?.includes("post-update") && (
                 <Link
                   href={`/posts/update?id=${post._id}&title=${encodeURIComponent(post.title)}&content=${encodeURIComponent(post.content)}`}

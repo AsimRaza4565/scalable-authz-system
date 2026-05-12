@@ -8,16 +8,11 @@ import { useEffect, useState } from "react";
 import { toast } from "react-toastify";
 import Loader from "@/app/components/Loader";
 import ConfirmationModal from "@/app/components/ConfirmationModal";
-
-interface User {
-  _id: string;
-  name: string;
-  email: string;
-}
+import { IUser } from "@/types";
 
 export default function UsersPage() {
   const { data: session } = useSession();
-  const [users, setUsers] = useState<User[]>([]);
+  const [users, setUsers] = useState<IUser[]>([]);
   const [loading, setLoading] = useState(true);
 
   const [isModalOpen, setIsModalOpen] = useState(false);

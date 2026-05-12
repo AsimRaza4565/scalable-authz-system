@@ -2,13 +2,13 @@ import { NextAuthOptions } from "next-auth"; //type that defines the settings fo
 import NextAuth from "next-auth/next";
 import CredentialsProvider from "next-auth/providers/credentials";
 import bcrypt from "bcryptjs";
-import User from "../../../../models/user";
-import { connectDatabase } from "../../../../lib/mongodb";
-import UserRole from "../../../../models/userRole";
-import RolePermission from "../../../../models/rolePermission";
-import Role from "../../../../models/role";
-import Permission from "../../../../models/permission";
-import { ensureDefaultPermissions } from "../../../../lib/defaultPermissions";
+import User from "@/models/user";
+import { connectDatabase } from "@/lib/mongodb";
+import UserRole from "@/models/userRole";
+import RolePermission from "@/models/rolePermission";
+import Role from "@/models/role";
+import Permission from "@/models/permission";
+import { ensureDefaultPermissions } from "@/lib/defaultPermissions";
 
 export const authOptions: NextAuthOptions = {
   providers: [
@@ -58,6 +58,8 @@ export const authOptions: NextAuthOptions = {
   callbacks: {
     async jwt({ token, user }) {
       if (user) {
+        token.id = user.id;
+
         await ensureDefaultPermissions();
 
         // Geting user's roles
@@ -93,10 +95,10 @@ export const authOptions: NextAuthOptions = {
 
     async session({ session, token }) {
       if (session?.user) {
+        session.user.id = token.id as string;
+        session.user.roles = token.roles;
+        session.user.permissions = token.permissions;
       }
-      session.user.roles = token.roles;
-      session.user.permissions = token.permissions;
-
       return session;
     },
   },

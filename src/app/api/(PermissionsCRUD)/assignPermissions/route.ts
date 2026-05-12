@@ -1,7 +1,7 @@
 import { NextResponse } from "next/server";
-import { connectDatabase } from "../../../../lib/mongodb";
-import RolePermission from "../../../../models/rolePermission";
-import Permission from "../../../../models/permission";
+import { connectDatabase } from "@/lib/mongodb";
+import RolePermission from "@/models/rolePermission";
+import Permission from "@/models/permission";
 
 async function normalizePermissionIds(permissionIds: string[]) {
   const uniquePermissionIds = Array.from(new Set(permissionIds.map((id) => String(id))));

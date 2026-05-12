@@ -1,7 +1,7 @@
 import { NextResponse } from "next/server";
-import { connectDatabase } from "../../../../../lib/mongodb";
-import User from "../../../../../models/user";
-import UserRole from "../../../../../models/userRole";
+import { connectDatabase } from "@/lib/mongodb";
+import User from "@/models/user";
+import UserRole from "@/models/userRole";
 
 export async function GET(
   req: Request,

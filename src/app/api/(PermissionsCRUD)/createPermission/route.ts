@@ -1,6 +1,6 @@
 import { NextResponse } from "next/server";
-import { connectDatabase } from "../../../../lib/mongodb";
-import Permission from "../../../../models/permission";
+import { connectDatabase } from "@/lib/mongodb";
+import Permission from "@/models/permission";
 export async function POST(request: Request) {
   try {
     await connectDatabase();

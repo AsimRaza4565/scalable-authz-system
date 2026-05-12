@@ -5,17 +5,12 @@ import { useSession } from "next-auth/react";
 import Link from "next/link";
 import { useEffect, useState } from "react";
 import { toast } from "react-toastify";
-import Loader from "../components/Loader";
+import Loader from "@/app/components/Loader";
 import ConfirmationModal from "@/app/components/ConfirmationModal";
-
-interface Post {
-  _id: string;
-  title: string;
-  content: string;
-}
+import { IPost } from "@/types";
 
 export default function Posts() {
-  const [posts, setPosts] = useState<Post[]>([]);
+  const [posts, setPosts] = useState<IPost[]>([]);
   const [loading, setLoading] = useState(true);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [postToDelete, setPostToDelete] = useState<string | null>(null);
@@ -116,25 +111,44 @@ export default function Posts() {
                     {post.content}
                   </p>
                 </Link>
-                
-                <div className="px-6 py-4 bg-slate-50/50 border-t border-slate-100 flex justify-end gap-3 mt-auto">
-                  {session?.user?.permissions?.includes("post-update") && (
-                    <Link
-                      href={`/posts/update?id=${post._id}&title=${encodeURIComponent(post.title)}&content=${encodeURIComponent(post.content)}`}
-                    >
-                      <button className="cursor-pointer text-emerald-700 bg-emerald-50 hover:bg-emerald-100 px-3 py-1.5 rounded-md transition-colors border border-emerald-200 text-sm font-medium">
-                        Edit
+
+                <div className="px-6 py-4 bg-slate-50/50 border-t border-slate-100 flex items-center justify-between gap-3 mt-auto">
+                  <div className="flex items-center gap-2">
+                    <div className="w-8 h-8 p-1 rounded-full bg-slate-100 border border-slate-300 flex items-center justify-center overflow-hidden shrink-0">
+                      <svg
+                        className="w-8 h-6 text-blue-700"
+                        viewBox="0 0 32 24"
+                        fill="currentColor"
+                        xmlns="http://www.w3.org/2000/svg"
+                      >
+                        <path d="M16 12c3 0 5-2.5 5-5.5S19 1 16 1s-5 2.5-5 5.5 2 5.5 5 5.5zm0 2c-5 0-9 3-9 6.5V23h18v-2.5c0-3.5-4-6.5-9-6.5z" />
+                      </svg>
+                    </div>
+                    <span className="pt-1 text-sm font-medium text-slate-700 truncate max-w-[120px]">
+                      {typeof post.author === "object" && post.author?.name
+                        ? post.author.name
+                        : "Unknown"}
+                    </span>
+                  </div>
+                  <div className="flex justify-end gap-3">
+                    {session?.user?.permissions?.includes("post-update") && (
+                      <Link
+                        href={`/posts/update?id=${post._id}&title=${encodeURIComponent(post.title)}&content=${encodeURIComponent(post.content)}`}
+                      >
+                        <button className="cursor-pointer text-emerald-700 bg-emerald-50 hover:bg-emerald-100 px-3 py-1.5 rounded-md transition-colors border border-emerald-200 text-sm font-medium">
+                          Edit
+                        </button>
+                      </Link>
+                    )}
+                    {session?.user?.permissions?.includes("post-delete") && (
+                      <button
+                        onClick={() => openDeleteModal(post._id)}
+                        className="cursor-pointer text-rose-700 bg-rose-50 hover:bg-rose-100 px-3 py-1.5 rounded-md transition-colors border border-rose-200 text-sm font-medium"
+                      >
+                        Delete
                       </button>
-                    </Link>
-                  )}
-                  {session?.user?.permissions?.includes("post-delete") && (
-                    <button
-                      onClick={() => openDeleteModal(post._id)}
-                      className="cursor-pointer text-rose-700 bg-rose-50 hover:bg-rose-100 px-3 py-1.5 rounded-md transition-colors border border-rose-200 text-sm font-medium"
-                    >
-                      Delete
-                    </button>
-                  )}
+                    )}
+                  </div>
                 </div>
               </div>
             ))}

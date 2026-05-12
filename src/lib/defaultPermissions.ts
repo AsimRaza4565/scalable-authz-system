@@ -1,6 +1,6 @@
-import Permission from "../models/permission";
-import Role from "../models/role";
-import RolePermission from "../models/rolePermission";
+import Permission from "@/models/permission";
+import Role from "@/models/role";
+import RolePermission from "@/models/rolePermission";
 import { connectDatabase } from "./mongodb";
 
 const defaultPermissions = [

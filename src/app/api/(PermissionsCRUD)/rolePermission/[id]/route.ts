@@ -1,6 +1,6 @@
 import { NextResponse } from "next/server";
-import { connectDatabase } from "../../../../../lib/mongodb";
-import RolePermission from "../../../../../models/rolePermission";
+import { connectDatabase } from "@/lib/mongodb";
+import RolePermission from "@/models/rolePermission";
 
 export async function GET(
   request: Request,

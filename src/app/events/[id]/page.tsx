@@ -9,14 +9,10 @@ import { useRouter } from "next/navigation";
 import { useParams } from "next/navigation";
 import Loader from "@/app/components/Loader";
 import ConfirmationModal from "@/app/components/ConfirmationModal";
-
-interface Event {
-  _id: string;
-  description: string;
-}
+import { IEvent } from "@/types";
 
 export default function SingleEvent() {
-  const [event, setEvent] = useState<Event | null>(null);
+  const [event, setEvent] = useState<IEvent | null>(null);
   const [loading, setLoading] = useState(true);
   const [isModalOpen, setIsModalOpen] = useState(false);
 

@@ -5,16 +5,12 @@ import { useSession } from "next-auth/react";
 import Link from "next/link";
 import { useEffect, useState } from "react";
 import { toast } from "react-toastify";
-import Loader from "../components/Loader";
+import Loader from "@/app/components/Loader";
 import ConfirmationModal from "@/app/components/ConfirmationModal";
-
-interface Event {
-  _id: string;
-  description: string;
-}
+import { IEvent } from "@/types";
 
 export default function Events() {
-  const [events, setEvents] = useState<Event[]>([]);
+  const [events, setEvents] = useState<IEvent[]>([]);
   const [loading, setLoading] = useState(true);
 
   const [isModalOpen, setIsModalOpen] = useState(false);

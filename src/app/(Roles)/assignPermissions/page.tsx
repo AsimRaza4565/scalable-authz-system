@@ -1,26 +1,15 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import Navbar from "../../components/Navbar";
+import Navbar from "@/app/components/Navbar";
 import Loader from "@/app/components/Loader";
 import { toast } from "react-toastify";
-
-interface Role {
-  _id: string;
-  name: string;
-  slug: string;
-}
-
-interface Permission {
-  _id: string;
-  name: string;
-  slug: string;
-}
+import { IRole, IPermission } from "@/types";
 
 export default function AssignRoles() {
-  const [roles, setRoles] = useState<Role[]>([]);
-  const [permissions, setPermissions] = useState<Permission[]>([]);
-  const [selectedRole, setSelectedRole] = useState<Role | null>(null);
+  const [roles, setRoles] = useState<IRole[]>([]);
+  const [permissions, setPermissions] = useState<IPermission[]>([]);
+  const [selectedRole, setSelectedRole] = useState<IRole | null>(null);
   const [selectedPermissions, setSelectedPermissions] = useState<string[]>([]);
   const [originalPermissions, setOriginalPermissions] = useState<string[]>([]);
   const [isUpdating, setIsUpdating] = useState(false);
